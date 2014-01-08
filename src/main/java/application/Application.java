@@ -6,10 +6,10 @@ public class Application {
 	private static final String POSTING_SEPARATOR = " -> ";
 	private static final String POSTING = USER_NAME + POSTING_SEPARATOR + ".*";
 
-	private final Users users; //TODO this should be injected, then each command should be unit tested
+	private final Users users;
 
-	public Application() {
-		users = new Users();
+	public Application(Users users) {
+		this.users = users;
 	}
 
 	public String execute(String command) {

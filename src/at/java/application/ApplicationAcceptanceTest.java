@@ -6,11 +6,11 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class AcceptanceTests {
+public class ApplicationAcceptanceTest {
 
 	@Test
 	public void usersCanPostToAndSeeTheirWall() {
-		Application app = new Application();
+		Application app = new Application(new Users());
 
 		app.execute("Alice -> I love the weather today");
 		app.execute("Bob -> Damn! We lost!");
