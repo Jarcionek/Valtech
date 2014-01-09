@@ -1,5 +1,7 @@
 package application;
 
+import application.commands.PostCommandProcessor;
+import application.commands.ReadCommandProcessor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,40 +19,37 @@ public class ApplicationTest {
 
 	private static final String USER_NAME = "UserName";
 	private static final String A_MESSAGE = "a message";
-	private static final String WALL = "user's wall line 1\nuser's wall line 2";
+	private static final String WALL_AS_STRING = "it doesn't matter what text it is";
 
-	@Mock private Users users;
-	@Mock private User user;
+	@Mock private PostCommandProcessor postCommandProcessor;
+	@Mock private ReadCommandProcessor readCommandProcessor;
+	@Mock private Wall wall;
 
 	private Application app;
 
 	@Before
 	public void setup() {
-		app = new Application(users);
+		app = new Application(postCommandProcessor, readCommandProcessor);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void throwsExceptionForUnknownCommand() {
+	public void throwsExceptionForUnknownCommand() { //TODO remove - not a requirement
 		app.execute("this is unknown command");
 	}
 
 	@Test
 	public void userCanPostToTheirWall() {
-		when(users.getUser(USER_NAME)).thenReturn(user);
-
 		app.execute(USER_NAME + " -> " + A_MESSAGE);
 
-		verify(user).post(A_MESSAGE);
+		verify(postCommandProcessor).post(USER_NAME, A_MESSAGE);
 	}
 	
 	@Test
 	public void userCanReadTheirWall() {
-		when(users.getUser(USER_NAME)).thenReturn(user);
-		when(user.getWallAsString()).thenReturn(WALL);
+		when(readCommandProcessor.read(USER_NAME)).thenReturn(wall);
+		when(wall.toString()).thenReturn(WALL_AS_STRING);
 
-		String wall = app.execute(USER_NAME);
-
-		assertThat(wall, is(equalTo(WALL)));
+		assertThat(app.execute(USER_NAME), is(equalTo(WALL_AS_STRING)));
 	}
 
 }

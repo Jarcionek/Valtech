@@ -1,5 +1,7 @@
 package application;
 
+import application.commands.PostCommandProcessor;
+import application.commands.ReadCommandProcessor;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -8,10 +10,11 @@ import static org.junit.Assert.assertThat;
 
 public class ApplicationAcceptanceTest {
 
+	private Users users = new Users();
+	private Application app = new Application(new PostCommandProcessor(users), new ReadCommandProcessor(users));
+
 	@Test
 	public void usersCanPostToAndSeeTheirWall() {
-		Application app = new Application(new Users());
-
 		app.execute("Alice -> I love the weather today");
 		app.execute("Bob -> Damn! We lost!");
 		app.execute("Bob -> Good game though.");
