@@ -32,7 +32,8 @@ public class WallToStringConverterTest {
 
 		timeIs(seconds(6));
 
-		assertThat(converter.convert(wall), is(equalTo("msg1 (5 seconds ago)" + "\n" + "msg2 (1 second ago)")));
+		assertThat(converter.convert(wall), is(equalTo("msg2 (1 second ago)" + "\n"
+													 + "msg1 (5 seconds ago)")));
 	}
 
 	@Test
@@ -45,9 +46,9 @@ public class WallToStringConverterTest {
 
 		timeIs(minutes(59) + seconds(59));
 
-		assertThat(converter.convert(wall), is(equalTo("msg1 (59 minutes ago)" + "\n"
+		assertThat(converter.convert(wall), is(equalTo("msg3 (1 minute ago)" + "\n"
 													 + "msg2 (59 minutes ago)" + "\n"
-													 + "msg3 (1 minute ago)")));
+													 + "msg1 (59 minutes ago)")));
 	}
 
 	@Test
@@ -59,8 +60,8 @@ public class WallToStringConverterTest {
 
 		timeIs(hours(2));
 
-		assertThat(converter.convert(wall), is(equalTo("msg1 (2 hours ago)" + "\n"
-													 + "msg2 (1 hour ago)")));
+		assertThat(converter.convert(wall), is(equalTo("msg2 (1 hour ago)" + "\n"
+													 + "msg1 (2 hours ago)")));
 	}
 
 	@Test
@@ -72,8 +73,8 @@ public class WallToStringConverterTest {
 
 		timeIs(days(2));
 
-		assertThat(converter.convert(wall), is(equalTo("msg1 (2 days ago)" + "\n"
-													 + "msg2 (1 day ago)")));
+		assertThat(converter.convert(wall), is(equalTo("msg2 (1 day ago)" + "\n"
+													 + "msg1 (2 days ago)")));
 	}
 
 	@Test
@@ -85,8 +86,8 @@ public class WallToStringConverterTest {
 
 		timeIs(months(30));
 
-		assertThat(converter.convert(wall), is(equalTo("msg1 (30 months ago)" + "\n"
-													 + "msg2 (1 month ago)")));
+		assertThat(converter.convert(wall), is(equalTo("msg2 (1 month ago)" + "\n"
+													 + "msg1 (30 months ago)")));
 	}
 
 	@Test

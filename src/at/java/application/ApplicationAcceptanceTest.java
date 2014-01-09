@@ -30,8 +30,8 @@ public class ApplicationAcceptanceTest {
 		app.execute("Bob -> " + MESSAGE_THREE);
 
 		assertThat(app.execute("Alice"), matchesRegex("\\Q" + MESSAGE_ONE + "\\E " + TIME_REGEX));
-		assertThat(app.execute("Bob"), matchesRegex("\\Q" + MESSAGE_TWO + "\\E " + TIME_REGEX + "\n" +
-													"\\Q" + MESSAGE_THREE + "\\E " + TIME_REGEX));
+		assertThat(app.execute("Bob"), matchesRegex("\\Q" + MESSAGE_THREE + "\\E " + TIME_REGEX + "\n" +
+													"\\Q" + MESSAGE_TWO + "\\E " + TIME_REGEX));
 	}
 
 }

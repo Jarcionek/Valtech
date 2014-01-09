@@ -2,7 +2,7 @@ package application;
 
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.hasItems;
+import static matchers.IterableMatchers.sameIterableAs;
 import static org.junit.Assert.assertThat;
 
 public class WallTest {
@@ -17,7 +17,7 @@ public class WallTest {
 		wall.add(MESSAGE_ONE);
 		wall.add(MESSAGE_TWO);
 
-		assertThat(wall, hasItems(MESSAGE_ONE, MESSAGE_TWO)); //TODO it doesn't check the size
+		assertThat(wall, sameIterableAs(MESSAGE_TWO, MESSAGE_ONE));
 	}
 
 }

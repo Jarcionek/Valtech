@@ -9,7 +9,7 @@ public class Wall implements Iterable<Message> {
 	private List<Message> list = new LinkedList<Message>();
 
 	public void add(Message message) {
-		list.add(message);
+		list.add(0, message);
 	}
 
 	@Override
