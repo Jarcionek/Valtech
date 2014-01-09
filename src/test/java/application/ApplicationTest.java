@@ -32,11 +32,6 @@ public class ApplicationTest {
 		app = new Application(postCommandProcessor, readCommandProcessor);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void throwsExceptionForUnknownCommand() { //TODO remove - not a requirement
-		app.execute("this is unknown command");
-	}
-
 	@Test
 	public void userCanPostToTheirWall() {
 		app.execute(USER_NAME + " -> " + A_MESSAGE);

@@ -28,7 +28,7 @@ public class Application {
 			return readCommandProcessor.read(command).toString();
 		}
 
-		throw new IllegalArgumentException("Unknown command: " + command); //TODO return string instead
+		return "Unknown command: " + command;
 	}
 
 }
