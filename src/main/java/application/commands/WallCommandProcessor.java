@@ -30,18 +30,9 @@ public class WallCommandProcessor {
 	}
 
 	public Wall read(String userName) {
-		User user = users.getUser(userName);
-		List<User> followingUsers = new LinkedList<User>();
-		for (String followingUser : user.getFollowing()) {
-			followingUsers.add(users.getUser(followingUser));
-		}
+		List<User> users = listOfUsersFollowedBy(userName);
 
-		List<Message> messages = new ArrayList<Message>();
-		addMessages(user, messages);
-		for (User followingUser : followingUsers) {
-			addMessages(followingUser, messages);
-		}
-		Collections.sort(messages, COMPARATOR);
+		List<Message> messages = sortedAllMessagesPostedBy(users);
 
 		Wall aggregatedWall = new Wall();
 		for (Message message : messages) {
@@ -49,6 +40,29 @@ public class WallCommandProcessor {
 		}
 
 		return aggregatedWall;
+	}
+
+	private List<User> listOfUsersFollowedBy(String userName) {
+		User user = users.getUser(userName);
+
+		List<User> followedUsers = new LinkedList<User>();
+		followedUsers.add(user);
+		for (String followedUser : user.getFollowing()) {
+			followedUsers.add(users.getUser(followedUser));
+		}
+
+		return followedUsers;
+	}
+
+	private List<Message> sortedAllMessagesPostedBy(List<User> users) {
+		List<Message> messages = new ArrayList<Message>();
+		for (User u : users) {
+			addMessages(u, messages);
+		}
+
+		Collections.sort(messages, COMPARATOR);
+
+		return messages;
 	}
 
 	private static void addMessages(User user, Collection<Message> messages) {
