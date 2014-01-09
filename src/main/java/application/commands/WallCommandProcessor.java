@@ -4,7 +4,6 @@ import application.Message;
 import application.User;
 import application.Users;
 import application.Wall;
-import com.google.common.collect.Iterables;
 
 import java.util.*;
 
@@ -37,15 +36,10 @@ public class WallCommandProcessor {
 			followingUsers.add(users.getUser(followingUser));
 		}
 
-		List<Wall> walls = new LinkedList<Wall>();
-		walls.add(user.getWall());
-		for (User followingUser : followingUsers) {
-			walls.add(followingUser.getWall());
-		}
-
 		List<Message> messages = new ArrayList<Message>();
-		for (Wall wall : walls) {
-			Iterables.addAll(messages, wall);
+		addMessages(user, messages);
+		for (User followingUser : followingUsers) {
+			addMessages(followingUser, messages);
 		}
 		Collections.sort(messages, COMPARATOR);
 
@@ -55,6 +49,13 @@ public class WallCommandProcessor {
 		}
 
 		return aggregatedWall;
+	}
+
+	private static void addMessages(User user, Collection<Message> messages) {
+		String prefix = user.getName() + " - ";
+		for (Message message : user.getWall()) {
+			messages.add(new Message(prefix + message.getMessage(), message.getTimestamp()));
+		}
 	}
 
 }

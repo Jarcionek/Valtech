@@ -47,16 +47,16 @@ public class ApplicationAcceptanceTest {
 		app.execute("Bob -> " + MESSAGE_TWO);
 		app.execute("Bob -> " + MESSAGE_THREE);
 
-	    app.execute("Charlie -> " + MESSAGE_FOUR);
-	    app.execute("Charlie follows Alice");
-		assertThat(app.execute("Charlie wall"), allOf(containsString(MESSAGE_ONE),
-													  containsString(MESSAGE_FOUR)));
+		app.execute("Charlie -> " + MESSAGE_FOUR);
+		app.execute("Charlie follows Alice");
+		assertThat(app.execute("Charlie wall"), allOf(containsString("Alice - " + MESSAGE_ONE),
+													  containsString("Charlie - " + MESSAGE_FOUR)));
 
 		app.execute("Charlie follows Bob");
-		assertThat(app.execute("Charlie wall"), allOf(containsString(MESSAGE_ONE),
-													  containsString(MESSAGE_TWO),
-													  containsString(MESSAGE_THREE),
-													  containsString(MESSAGE_FOUR)));
+		assertThat(app.execute("Charlie wall"), allOf(containsString("Alice - " + MESSAGE_ONE),
+													  containsString("Bob - " + MESSAGE_TWO),
+													  containsString("Bob - " + MESSAGE_THREE),
+													  containsString("Charlie - " + MESSAGE_FOUR)));
 	}
 
 }

@@ -4,6 +4,7 @@ import application.Message;
 import application.User;
 import application.Users;
 import application.Wall;
+import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,20 +20,17 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class WallCommandProcessorTest {
 
-	private static final String USER_NAME = "UserName";
-	private static final String FOLLOWING_USER_NAME_ONE = "FUserNameOne";
-	private static final String FOLLOWING_USER_NAME_TWO = "FUserNameTwo";
+	private static final String USER_NAME_1 = "UserOne";
+	private static final String USER_NAME_2 = "UserTwo";
+	private static final String USER_NAME_3 = "UserThree";
 
-	private static final Wall USER_WALL = wallWithMessages(msg(1), msg(5));
-	private static final Wall FOLLOWING_USER_ONE_WALL = wallWithMessages(msg(2), msg(4));
-	private static final Wall FOLLOWING_USER_TWO_WALL = wallWithMessages(msg(3), msg(6));
+	private static final User USER_1 = new User(USER_NAME_1, wallWithMessages(msg(1), msg(5)), newArrayList(USER_NAME_2, USER_NAME_3));
+	private static final User USER_2 = new User(USER_NAME_2, wallWithMessages(msg(2), msg(4)), Lists.<String>newArrayList());
+	private static final User USER_3 = new User(USER_NAME_3, wallWithMessages(msg(3), msg(6)), Lists.<String>newArrayList());
 
 	private WallCommandProcessor wallCommandProcessor;
 
 	@Mock private Users users;
-	@Mock private User user;
-	@Mock private User followingUserOne;
-	@Mock private User followingUserTwo;
 
 	@Before
 	public void setup() {
@@ -41,22 +39,25 @@ public class WallCommandProcessorTest {
 
 	@Test
 	public void returnsAggregatedWallOfUserAndFollowingUsers() {
-		when(users.getUser(USER_NAME)).thenReturn(user);
-		when(user.getFollowing()).thenReturn(newArrayList(FOLLOWING_USER_NAME_ONE, FOLLOWING_USER_NAME_TWO));
+		when(users.getUser(USER_NAME_1)).thenReturn(USER_1);
+		when(users.getUser(USER_NAME_2)).thenReturn(USER_2);
+		when(users.getUser(USER_NAME_3)).thenReturn(USER_3);
 
-		when(users.getUser(FOLLOWING_USER_NAME_ONE)).thenReturn(followingUserOne);
-		when(users.getUser(FOLLOWING_USER_NAME_TWO)).thenReturn(followingUserTwo);
-
-		when(user.getWall()).thenReturn(USER_WALL);
-		when(followingUserOne.getWall()).thenReturn(FOLLOWING_USER_ONE_WALL);
-		when(followingUserTwo.getWall()).thenReturn(FOLLOWING_USER_TWO_WALL);
-
-		assertThat(wallCommandProcessor.read(USER_NAME), is(sameIterableAs(msg(6), msg(5), msg(4), msg(3), msg(2), msg(1))));
+		assertThat(wallCommandProcessor.read(USER_NAME_1), is(sameIterableAs(msg(USER_NAME_3, 6),
+																			 msg(USER_NAME_1, 5),
+																			 msg(USER_NAME_2, 4),
+																			 msg(USER_NAME_3, 3),
+																			 msg(USER_NAME_2, 2),
+																			 msg(USER_NAME_1, 1))));
 	}
 
 
 	private static Message msg(int n) {
 		return new Message("" + n, n);
+	}
+
+	private static Message msg(String author, int n) {
+		return new Message(author + " - " + n, n);
 	}
 
 	private static Wall wallWithMessages(Message... messages) {
