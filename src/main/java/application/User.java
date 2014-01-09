@@ -1,13 +1,17 @@
 package application;
 
+import java.util.List;
+
 public class User {
 
 	private final String name;
 	private final Wall wall;
+	private final List<String> following;
 
-	public User(String name, Wall wall) {
+	public User(String name, Wall wall, List<String> following) {
 		this.name = name;
 		this.wall = wall;
+		this.following = following;
 	}
 
 	public String getName() {
@@ -20,6 +24,14 @@ public class User {
 
 	public Wall getWall() {
 		return wall;
+	}
+
+	public void follows(String userName) {
+		following.add(userName);
+	}
+
+	public Iterable<String> getFollowing() {
+		return following;
 	}
 
 }

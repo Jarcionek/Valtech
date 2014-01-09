@@ -4,7 +4,7 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import static com.shazam.shazamcrest.matcher.Matchers.sameBeanAs;
 
 public class IterableMatchers {
 
@@ -19,7 +19,7 @@ public class IterableMatchers {
 						mismatchDescription.appendText("unexpected element at position " + i + ": " + o);
 						return false;
 					}
-					if (!equalTo(expected[i]).matches(o)) {
+					if (!sameBeanAs(expected[i]).matches(o)) {
 						mismatchDescription.appendText("mismatch at position " + i + "\n");
 						mismatchDescription.appendText("expected: " + expected[i] + "\n");
 						mismatchDescription.appendText("but was: " + o);

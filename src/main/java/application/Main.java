@@ -1,7 +1,9 @@
 package application;
 
+import application.commands.FollowCommandProcessor;
 import application.commands.PostCommandProcessor;
 import application.commands.ReadCommandProcessor;
+import application.commands.WallCommandProcessor;
 
 import java.util.Scanner;
 
@@ -10,7 +12,11 @@ public class Main {
 	public static void main(String[] args) {
 		Users users = new Users();
 		Clock clock = new Clock();
-		Application app = new Application(new PostCommandProcessor(users, clock), new ReadCommandProcessor(users), new WallToStringConverter(clock));
+		Application app = new Application(new PostCommandProcessor(users, clock),
+										  new ReadCommandProcessor(users),
+										  new FollowCommandProcessor(users),
+										  new WallCommandProcessor(users),
+										  new WallToStringConverter(clock));
 
 		Scanner scanner = new Scanner(System.in);
 

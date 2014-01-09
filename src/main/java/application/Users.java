@@ -13,7 +13,7 @@ public class Users {
 				return user;
 			}
 		}
-		User user = new User(userName, new Wall());
+		User user = new User(userName, new Wall(), new LinkedList<String>());
 		users.add(user);
 		return user;
 	}
