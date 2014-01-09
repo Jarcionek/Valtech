@@ -19,17 +19,18 @@ public class ApplicationTest {
 
 	private static final String USER_NAME = "UserName";
 	private static final String A_MESSAGE = "a message";
-	private static final String WALL_AS_STRING = "it doesn't matter what text it is";
+	private static final String WALL_AS_STRING = "it doesn't matter what this text it is";
 
 	@Mock private PostCommandProcessor postCommandProcessor;
 	@Mock private ReadCommandProcessor readCommandProcessor;
+	@Mock private WallToStringConverter wallToStringConverter;
 	@Mock private Wall wall;
 
 	private Application app;
 
 	@Before
 	public void setup() {
-		app = new Application(postCommandProcessor, readCommandProcessor);
+		app = new Application(postCommandProcessor, readCommandProcessor, wallToStringConverter);
 	}
 
 	@Test
@@ -42,7 +43,7 @@ public class ApplicationTest {
 	@Test
 	public void userCanReadTheirWall() {
 		when(readCommandProcessor.read(USER_NAME)).thenReturn(wall);
-		when(wall.toString()).thenReturn(WALL_AS_STRING);
+		when(wallToStringConverter.convert(wall)).thenReturn(WALL_AS_STRING);
 
 		assertThat(app.execute(USER_NAME), is(equalTo(WALL_AS_STRING)));
 	}

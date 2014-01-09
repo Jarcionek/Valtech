@@ -9,7 +9,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		Users users = new Users();
-		Application app = new Application(new PostCommandProcessor(users), new ReadCommandProcessor(users));
+		Clock clock = new Clock();
+		Application app = new Application(new PostCommandProcessor(users, clock), new ReadCommandProcessor(users), new WallToStringConverter(clock));
 
 		Scanner scanner = new Scanner(System.in);
 

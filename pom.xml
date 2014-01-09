@@ -35,6 +35,11 @@
             <artifactId>google-collections</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.shazam</groupId>
+            <artifactId>shazamcrest</artifactId>
+            <version>0.7</version>
+        </dependency>
     </dependencies>
     
 </project>

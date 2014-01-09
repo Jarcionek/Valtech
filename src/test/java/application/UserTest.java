@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 public class UserTest {
 
 	private static final String ANY_NAME = "userName";
-	private static final String A_MESSAGE = "a message";
+	private static final Message A_MESSAGE = new Message("a message", 12345L);
 
 	@Mock private Wall wall;
 

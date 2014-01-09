@@ -14,7 +14,7 @@ public class User {
 		return name;
 	}
 
-	public void post(String message) {
+	public void post(Message message) {
 		wall.add(message);
 	}
 

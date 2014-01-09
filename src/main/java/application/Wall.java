@@ -1,24 +1,20 @@
 package application;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Wall {
+public class Wall implements Iterable<Message> {
 
-	private List<String> list = new LinkedList<String>();
+	private List<Message> list = new LinkedList<Message>();
 
-	public void add(String message) {
+	public void add(Message message) {
 		list.add(message);
 	}
 
 	@Override
-	public String toString() {
-		StringBuilder stringBuilder = new StringBuilder();
-		for (String message : list) {
-			stringBuilder.append("\n");
-			stringBuilder.append(message);
-		}
-		return stringBuilder.delete(0, 1).toString();
+	public Iterator<Message> iterator() {
+		return list.iterator();
 	}
 
 }

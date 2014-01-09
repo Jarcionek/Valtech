@@ -11,10 +11,12 @@ public class Application {
 
 	private final PostCommandProcessor postCommandProcessor;
 	private final ReadCommandProcessor readCommandProcessor;
+	private final WallToStringConverter wallToStringConverter;
 
-	public Application(PostCommandProcessor postCommandProcessor, ReadCommandProcessor readCommandProcessor) {
+	public Application(PostCommandProcessor postCommandProcessor, ReadCommandProcessor readCommandProcessor, WallToStringConverter wallToStringConverter) {
 		this.postCommandProcessor = postCommandProcessor;
 		this.readCommandProcessor = readCommandProcessor;
+		this.wallToStringConverter = wallToStringConverter;
 	}
 
 	public String execute(String command) {
@@ -25,7 +27,7 @@ public class Application {
 			postCommandProcessor.post(userName, message);
 			return null;
 		} else if (command.matches(USER_NAME_REGEX)) {
-			return readCommandProcessor.read(command).toString();
+			return wallToStringConverter.convert(readCommandProcessor.read(command));
 		}
 
 		return "Unknown command: " + command;
