@@ -3,6 +3,9 @@ package application;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Stores all information about users.
+ */
 public class Users {
 
 	private final List<User> users = new LinkedList<User>();

@@ -1,5 +1,9 @@
 package application;
 
+/**
+ * Converts {@link Wall} into human-readable String. Instead of showing timestamps it shows how much time elapsed
+ * since the event occurred. Times are rounded down.
+ */
 public class WallToStringConverter {
 
 	private final Clock clock;

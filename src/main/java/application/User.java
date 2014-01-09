@@ -2,6 +2,9 @@ package application;
 
 import java.util.List;
 
+/**
+ * Data of a single user.
+ */
 public class User {
 
 	private final String name;

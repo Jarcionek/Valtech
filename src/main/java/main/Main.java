@@ -1,5 +1,9 @@
-package application;
+package main;
 
+import application.Application;
+import application.Clock;
+import application.Users;
+import application.WallToStringConverter;
 import application.commands.FollowCommandProcessor;
 import application.commands.PostCommandProcessor;
 import application.commands.ReadCommandProcessor;
