@@ -1,6 +1,7 @@
 package application;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Data of a single user.
@@ -9,12 +10,13 @@ public class User {
 
 	private final String name;
 	private final Wall wall;
-	private final List<String> following;
+	private final Set<String> following;
 
-	public User(String name, Wall wall, List<String> following) {
+	public User(String name) {
 		this.name = name;
-		this.wall = wall;
-		this.following = following;
+		this.wall = new Wall();
+		this.following = new HashSet<String>();
+		this.following.add(name);
 	}
 
 	public String getName() {

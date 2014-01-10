@@ -46,7 +46,6 @@ public class WallCommandProcessor {
 		User user = users.getUser(userName);
 
 		List<User> followedUsers = new LinkedList<User>();
-		followedUsers.add(user);
 		for (String followedUser : user.getFollowing()) {
 			followedUsers.add(users.getUser(followedUser));
 		}
