@@ -8,9 +8,9 @@ import application.commands.WallCommandProcessor;
 public class Application {
 
 	private static final String USER_NAME_REGEX = "\\w+";
-	private static final String POSTING_SEPARATOR = " -> ";
-	private static final String FOLLOWING_SEPARATOR = " follows ";
-	private static final String WALL_SEPARATOR = " wall";
+	private static final String POSTING_SEPARATOR = "\\s+->\\s+";
+	private static final String FOLLOWING_SEPARATOR = "\\s+follows\\s+";
+	private static final String WALL_SEPARATOR = "\\s+wall";
 	private static final String POST_COMMAND_REGEX = USER_NAME_REGEX + POSTING_SEPARATOR + ".*";
 	private static final String READ_COMMAND_REGEX = USER_NAME_REGEX;
 	private static final String FOLLOW_COMMAND_REGEX = USER_NAME_REGEX + FOLLOWING_SEPARATOR + USER_NAME_REGEX;
@@ -53,7 +53,7 @@ public class Application {
 			return wallToStringConverter.convert(wallCommandProcessor.read(command.split(WALL_SEPARATOR)[0]));
 		}
 
-		return "Unknown command: " + command;
+		return "Unknown command: \"" + command + "\"";
 	}
 
 }
